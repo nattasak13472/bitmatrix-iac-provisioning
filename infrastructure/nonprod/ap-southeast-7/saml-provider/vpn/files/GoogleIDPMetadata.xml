@@ -1,0 +1,4 @@
+<!-- Placeholder for Google SAML Metadata XML -->
+<!-- Replace this content with the actual XML downloaded from Google Admin Console -->
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+</EntityDescriptor>
