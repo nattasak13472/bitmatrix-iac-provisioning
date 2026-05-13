@@ -4,11 +4,11 @@
 # Target Bucket Configuration
 # ==========================================================
 # Available options:
-# bitmatrix-crypto-dealer-nonprod-th-tfstate (Region: ap-southeast-7)
-# bitmatrix-crypto-dealer-prod-th-tfstate    (Region: ap-southeast-7)
-# bitmatrix-crypto-dealer-prod-sg-tfstate    (Region: ap-southeast-1)
+# bitmatrix-np-th-tfstate (Region: ap-southeast-7)
+# bitmatrix-prd-th-tfstate    (Region: ap-southeast-7)
+# bitmatrix-prd-sg-tfstate    (Region: ap-southeast-1)
 
-S3_BUCKET_NAME="bitmatrix-crypto-dealer-nonprod-th-tfstate"
+S3_BUCKET_NAME="bitmatrix-np-th-tfstate"
 S3_BUCKET_REGION="ap-southeast-7"
 
 echo "=========================================================="
