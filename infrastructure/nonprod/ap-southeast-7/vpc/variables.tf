@@ -42,3 +42,9 @@ variable "common_tags" {
   description = "Common tags"
   type        = map(string)
 }
+
+variable "single_nat_gateway" {
+  description = "Whether to use a single NAT Gateway or one per AZ"
+  type        = bool
+  default     = false
+}

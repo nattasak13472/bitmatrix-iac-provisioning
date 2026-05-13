@@ -1,6 +1,6 @@
 # VPC
 module "vpc" {
-  source = "../../../../../../iac-modules/networking/vpc"
+  source = "../../../../../iac-modules/networking/vpc"
 
   project     = var.project
   environment = var.environment
@@ -11,7 +11,7 @@ module "vpc" {
 
 # SUBNETS
 module "subnets" {
-  source = "../../../../../../iac-modules/networking/subnets"
+  source = "../../../../../iac-modules/networking/subnets"
 
   project                  = var.project
   environment              = var.environment
@@ -26,7 +26,7 @@ module "subnets" {
 
 # INTERNET GATEWAY
 module "internet_gateway" {
-  source = "../../../../../../iac-modules/networking/internet_gateway"
+  source = "../../../../../iac-modules/networking/internet_gateway"
 
   project     = var.project
   environment = var.environment
@@ -35,34 +35,37 @@ module "internet_gateway" {
   common_tags = var.common_tags
 }
 
-# EIP
-module "eip" {
-  source = "../../../../../../iac-modules/networking/eip"
+# EIP - 1
+module "eip_nat_1" {
+  source = "../../../../../iac-modules/networking/eip"
 
-  project            = var.project
-  environment        = var.environment
-  region             = var.region
-  availability_zones = var.availability_zones
-  common_tags        = var.common_tags
+  resource_name = "nat-1"
+  project       = var.project
+  environment   = var.environment
+  region        = var.region
+  common_tags   = var.common_tags
+
 }
 
 # NAT GATEWAY
 module "nat_gateway" {
-  source = "../../../../../../iac-modules/networking/nat_gateway"
+  source = "../../../../../iac-modules/networking/nat_gateway"
 
   project             = var.project
   environment         = var.environment
   region              = var.region
   availability_zones  = var.availability_zones
-  eip_allocation_ids  = module.eip.eip_allocation_ids
   public_subnet_ids   = module.subnets.public_subnet_ids
   internet_gateway_id = module.internet_gateway.internet_gateway_id
+  single_nat_gateway  = true
+  eip_allocation_ids  = [module.eip_nat_1.eip_allocation_id]
   common_tags         = var.common_tags
+
 }
 
 # ROUTE TABLE
 module "route_table" {
-  source = "../../../../../../iac-modules/networking/route_table"
+  source = "../../../../../iac-modules/networking/route_table"
 
   project                = var.project
   environment            = var.environment
@@ -73,6 +76,8 @@ module "route_table" {
   private_app_subnet_ids = module.subnets.private_app_subnet_ids
   private_db_subnet_ids  = module.subnets.private_db_subnet_ids
   internet_gateway_id    = module.internet_gateway.internet_gateway_id
+  single_nat_gateway     = true
   nat_gateway_ids        = module.nat_gateway.nat_gateway_ids
   common_tags            = var.common_tags
+
 }

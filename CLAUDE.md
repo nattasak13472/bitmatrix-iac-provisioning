@@ -18,8 +18,9 @@ Foundation includes VPC, Aurora Global, and ECS Clusters.
 - **Dependency:** The Primary region (`ap-southeast-7`) must be applied before the Secondary region (`ap-southeast-1`) to establish the Aurora Global Cluster.
 - **Commands:**
 ```bash
-cd infrastructure/prod/ap-southeast-7
-terraform init
+cd infrastructure/nonprod/ap-southeast-7/[folder]
+terraform init -backend-config="../../../../_common/backend-config/nonprod-ap-southeast-7.config"
+terraform plan -var-file="terraform.tfvars.json"
 terraform apply -var-file="terraform.tfvars.json"
 ```
 
@@ -29,7 +30,7 @@ Services in deployments/ consume infrastructure via SSM Parameter Store.
 - Scaling: Adjust task_count or cpu/memory in the service's terraform.tfvars.json to handle the 10k user load.
 
 ## 🔑 State Management & Backends
-- Isolation: Each leaf folder (e.g., prod/ap-southeast-7) has its own backend.tf and S3 state file.
+- Isolation: Each leaf folder (e.g., nonprod/ap-southeast-7) has its own backend.tf and S3 state file.
 - Naming: Backend keys follow the pattern: [layer]/[account]/[region]/terraform.tfstate.
 
 ## 🛡️ Critical Safety Procedures (The "Rules of 10k/20TB")

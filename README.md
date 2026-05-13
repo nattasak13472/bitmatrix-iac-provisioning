@@ -91,11 +91,11 @@ Contains microservice-specific deployments (Task Definitions & Services). These 
 cd infrastructure/prod/ap-southeast-7
 
 # 2. Initialize with environment-specific backend config
-terraform init -backend-config="../../../../../_common/backend-config/nonprod-ap-southeast-7.config"
+terraform init -backend-config="../../../../_common/backend-config/nonprod-ap-southeast-7.config"
 
 # 3. Plan and Apply
 terraform plan -var-file="terraform.tfvars.json"
-terraform apply
+terraform apply -var-file="terraform.tfvars.json"
 ```
 
 ## 🔐 Security & Compliance
