@@ -22,4 +22,3 @@ variable "vpc_ids" {
   description = "A list of VPC IDs for private zones"
   type        = list(string)
 }
-
